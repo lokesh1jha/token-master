@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 contract TokenMaster is ERC721 {
     address public owner;
     uint256 public totalOccasions;
+    uint256 public totalSupply;
 
     struct Occasion {
         uint256 id;
@@ -20,7 +21,18 @@ contract TokenMaster is ERC721 {
 
     mapping(uint256 => Occasion) occasions;
 
-    modifier onlyOwner(){
+    // this will record that the buyer has bought it or not
+    mapping(uint256 => mapping(address => bool)) public hasBought;
+
+    // complex mapping
+    // key: occasion_id     value: Mapping of seats
+    // Mapping of seats will show which seat is booked by whom
+    mapping(uint256 => mapping(uint256 => address)) public seatTaken;
+
+    // to maintain the seat taken in each occasion
+    mapping(uint256 => uint256[]) public seatsTaken;
+
+    modifier onlyOwner() {
         require(msg.sender == owner);
         _; // this is the function body where OnlyOwner will be used
     }
@@ -54,7 +66,23 @@ contract TokenMaster is ERC721 {
         );
     }
 
-    function getOccasion(uint256 _id) public view  returns (Occasion memory) {
+    function getOccasion(uint256 _id) public view returns (Occasion memory) {
         return occasions[_id];
+    }
+
+    function mint(uint256 _id, uint256 _seat) public payable {
+        occasions[_id].tickets -= 1; // Update the ticket count
+
+        hasBought[_id][msg.sender] = true; // Update buying status
+        seatTaken[_id][_seat] = msg.sender; // Assign buyer the seat number
+
+        seatsTaken[_id].push(_seat); // Update taken seat array
+
+        totalSupply++;
+        _safeMint(msg.sender, totalSupply);
+    }
+
+    function getSeatsTaken(uint256 _id) public view returns (uint256[] memory){
+        return seatsTaken[_id];
     }
 }
