@@ -97,7 +97,19 @@ contract TokenMaster is ERC721 {
         return seatsTaken[_id];
     }
 
-     function withdraw() public onlyOwner {
+    function withdraw() public onlyOwner {
+    
+        /*
+        address(this) --> address of this contract 
+
+        owner.call{value: address(this).balance}(""): This is the call function, 
+        which is used to execute an external function call. In this case, 
+        it's sending Ether to the owner address. The {value: address(this).balance} 
+        part specifies that the call should include a transfer of the entire balance 
+        of the current contract (address(this).balance). The empty string "" represents 
+        the function signature (if any) of the function being called. Since we're not 
+        calling any specific function, it's empty.
+        */
         (bool success, ) = owner.call{value: address(this).balance}("");
         require(success);
     }
