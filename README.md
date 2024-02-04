@@ -29,5 +29,9 @@
 In a separate terminal execute:
 `$ npx hardhat run ./scripts/deploy.js --network localhost`
 
+Terminal will show:
+Deployed TokenMaster Contract at: 0x5FbDB2315678afecb367f032d93F642f64180aa3
+Update this address in src/config.json
+
 ### 6. Start frontend
 `$ npm run start`
