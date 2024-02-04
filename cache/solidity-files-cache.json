@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/lokesh/Documents/workspace/token-master/contracts/TokenMaster.sol": {
-      "lastModificationDate": 1706909743623,
-      "contentHash": "9352fc81cf4032b56bf25244d82818df",
+      "lastModificationDate": 1706996626708,
+      "contentHash": "8402e8315c64fcf7506c4cf7b0cfed27",
       "sourceName": "contracts/TokenMaster.sol",
       "solcConfig": {
         "version": "0.8.17",
