@@ -14,6 +14,7 @@ import TokenMaster from './abis/TokenMaster.json'
 import config from './config.json'
 
 function App() {
+  
   const [provider, setProvider] = useState(null)
   const [account, setAccount] = useState(null)
 
@@ -28,6 +29,7 @@ function App() {
     setProvider(provider)
 
     const network = await provider.getNetwork()
+    console.log(network.chainId)
     const tokenMaster = new ethers.Contract(config[network.chainId].TokenMaster.address, TokenMaster, provider)
     setTokenMaster(tokenMaster)
 
